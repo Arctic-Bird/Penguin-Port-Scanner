@@ -1,3 +1,4 @@
+# VERSION FOR LINUX
 from scapy.all import *
 from scapy.layers.inet import IP, TCP, UDP
 from tqdm import tqdm

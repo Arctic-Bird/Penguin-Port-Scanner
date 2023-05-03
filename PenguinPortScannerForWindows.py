@@ -26,6 +26,8 @@ def std_tcp_scan(dest_ip, begin_dest_ports, end_dest_ports):
     else:
         print(f"Found 0 open ports.")
 
+    print("🐧 Thank you for using Penguin Port Scanner. Please come again 🐧")
+
 def udp_scan(dest_ip, begin_dest_ports, end_dest_ports):
     udp_packet = IP(dst=dest_ip)/UDP(dport=0)
 
@@ -47,15 +49,17 @@ def udp_scan(dest_ip, begin_dest_ports, end_dest_ports):
     else:
         print(f"\nFound 0 open ports")
 
+    print("🐧 Thank you for using Penguin Port Scanner. Please come again 🐧")
 
 
-print("Welcome to Penguin Port Scanner!\n")
+
+print("🐧 Welcome to Penguin Port Scanner! 🐧\n")
 
 done = False
 while not done:
-    dest_ip = input("Enter destination IP address:\t")
+    dest_ip = input("Enter destination IP address/website:\t")
     try:
-        print(f"Entered dest_ip: {dest_ip}.")
+        print(f"Entered: {dest_ip}.")
         done = True
         continue
     except ValueError:
@@ -68,8 +72,11 @@ while not done:
         end_dest_ports = int(input("Enter end port (1-1000):\t"))
 
         if (begin_dest_ports >= 1 and end_dest_ports <= 1000):
-            print(f"Port range is between {begin_dest_ports} and {end_dest_ports}")
-            break
+            if (end_dest_ports >= begin_dest_ports):
+                print(f"Port range is between {begin_dest_ports} and {end_dest_ports}")
+                done = True
+            else:
+                print("End destination port must be >= beginning destination port")
         else:
             print("Ports must be between 1 and 1000. Please try again")
     except ValueError:

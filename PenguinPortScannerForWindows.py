@@ -8,16 +8,16 @@ dest_ip = ""
 begin_dest_ports = 0
 end_dest_ports = 0
 def std_tcp_scan(dest_ip, begin_dest_ports, end_dest_ports):
-    tcp_packet = IP(dst=dest_ip)/TCP(dport=0, flags="S")
+    tcp_packet = IP(dst=dest_ip)/TCP(dport=0, flags="S")  # Craft a TCP packet. Give it the "Send" flag
 
-    open_ports = []
+    open_ports = [] # Initialize the open port list
     for port in tqdm(range(begin_dest_ports, end_dest_ports + 1), desc='Scanning TCP ports'):
         tcp_packet[TCP].dport = port
 
-        os.system("cls")
+        os.system("cls") # For the progress bar. Clear the output terminal after each iteration.
 
-        tcp_response = sr1(tcp_packet, timeout=1, verbose=0)
-        if (tcp_response):
+        tcp_response = sr1(tcp_packet, timeout=1, verbose=0) # Determine if a response was received.
+        if (tcp_response): # If a response was received, add the open port to the list
             if (tcp_response[TCP].flags == "SA"):
                 open_ports.append(port)
 
@@ -63,7 +63,7 @@ while not done:
         done = True
         continue
     except ValueError:
-        print("Input must be in format 000.000.000.000, please try again")
+        print("Input must be an IP address or a website")
 
 done = False
 while not done:
